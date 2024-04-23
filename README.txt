@@ -1,17 +1,28 @@
 - Classi:
+	. App
 	. Motocicletta
 	. Garage
-	. Eccezioni
-	. Utilita
+	. EccezionePosizioneNonValida
+	. EccezionePosizioneOccupata
+	. EccezionePosizioneVuota
+	. ConsoleInput
+	. Menu
+	. Ordinatore
 
 - Attributi
 	. Marca
 	. Modello
+	. Cilindrata
+	. dataImmatricolazione
 
 - Metodi
-	. getter e setter
-	. aggiungi
-	. elimina
-	. visualizza tutte le moto
-	. visualizza moto in pos.
-	. visualizza tutte moto di "marca"
+	. Visualizza tutte le moto del garage
+	. Aggiungi moto (posizione)
+	. Cerca moto (posizione)
+	. Elimina moto (posizione)
+	. Mostra moto di una specifica marca
+	. Mostra elenco delle moto presenti ordinato per cilindrata
+	. Stampa su file CSV
+	. Leggi su file CSV
+	. Salva su file binario
+	. Leggi da file binario
