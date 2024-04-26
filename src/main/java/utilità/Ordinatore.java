@@ -246,5 +246,6 @@ public class Ordinatore
                 scambia(vOrdinato, i);
         }
        return vOrdinato;
+       
     }
 }
