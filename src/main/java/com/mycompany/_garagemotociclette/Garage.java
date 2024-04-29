@@ -107,7 +107,7 @@ public class Garage implements Serializable
         if (moto[posizione]==null)
                 throw new EccezionePosizioneVuota();
         moto[posizione]=null;
-        //    return posizione;  
+        //    return posizione;
     }
     
     public void setMoto(Motocicletta moto, int posizione) throws EccezionePosizioneNonValida, EccezionePosizioneOccupata
@@ -191,7 +191,7 @@ public class Garage implements Serializable
         return elencoMarcaMoto;
     }
     
-    public Motocicletta[] elencoMotoOrdinatoPerCilindrata()
+    /*public Motocicletta[] elencoMotoOrdinatoPerCilindrata()
     {
         Motocicletta[] elencoMotoOrdinato=new Motocicletta[getNumMoto()];
         Motocicletta mc;
@@ -216,7 +216,7 @@ public class Garage implements Serializable
         //ordino l'array delle moto presenti
         elencoMotoOrdinato=Ordinatore.selectionSortCrescente(elencoMotoOrdinato);
         return elencoMotoOrdinato;   
-    }
+    }*/
     
     public void esportaCSV(String nomeFile) throws IOException
     {
@@ -229,7 +229,7 @@ public class Garage implements Serializable
             try 
             {
                 mc=this.getMoto(i);
-                datiMoto=i+";"+mc.getMarca()+";"+mc.getModello()+";"+mc.getCilindrata()+";"+mc.getDataImmatricolazione();
+                datiMoto=i+";"+mc.getIdMotocicletta()+";"+mc.getMarca()+";"+mc.getModello()+";"+mc.getCilindrata()+";"+mc.getDataImmatricolazione();
                 f1.toFile(datiMoto);
             }                             
             catch (EccezionePosizioneVuota ex) 
@@ -251,7 +251,7 @@ public class Garage implements Serializable
         String rigaLetta;
         String[] datiMoto;
         TextFile f1;
-        int posizione,cilindrata;
+        int posizione,cilindrata,idMotocicletta;
         String marca, modello, dataImmatricolazione;
         Motocicletta mc;
         f1=new TextFile(nomeFile, 'R');
@@ -263,10 +263,11 @@ public class Garage implements Serializable
                 rigaLetta=f1.fromFile();
                 datiMoto=rigaLetta.split(";");
                 posizione=Integer.parseInt(datiMoto[0]);
-                marca=datiMoto[1];
-                modello=datiMoto[2];
-                cilindrata=Integer.parseInt(datiMoto[3]);
-                dataImmatricolazione=datiMoto[4];
+                idMotocicletta=Integer.parseInt(datiMoto[1]);
+                marca=datiMoto[2];
+                modello=datiMoto[3];
+                cilindrata=Integer.parseInt(datiMoto[4]);
+                dataImmatricolazione=datiMoto[5];
                 mc=new Motocicletta(marca,modello,cilindrata,dataImmatricolazione);
                 try 
                 {
@@ -275,8 +276,7 @@ public class Garage implements Serializable
                 catch (EccezionePosizioneNonValida ex) 
                 {
                     //non faccio nulla
-                } 
-                catch (EccezionePosizioneOccupata ex) 
+                } catch (EccezionePosizioneOccupata ex) 
                 {
                     //non faccio nulla
                 }
@@ -287,6 +287,10 @@ public class Garage implements Serializable
                 f1.closeFile();
                 System.out.println("Importazione terminata!");
                 break;
+            } 
+            catch (EccezioneCilindrataNonValida ex) 
+            {
+                //non fare nulla
             }
         }while(true);
     }

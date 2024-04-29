@@ -232,7 +232,7 @@ public class Ordinatore
 	return sOrdinato;
     }
     
-    public static Motocicletta[] ordinaMotoCrescente(Motocicletta[] m)
+    /*public static Motocicletta[] ordinaMotoCrescente(Motocicletta[] m)
     {
         int lunghezza=m.length;
         //Creo una copia di v e lo chiamo vOrdinato
@@ -246,6 +246,5 @@ public class Ordinatore
                 scambia(vOrdinato, i);
         }
        return vOrdinato;
-       
-    }
+    }*/
 }

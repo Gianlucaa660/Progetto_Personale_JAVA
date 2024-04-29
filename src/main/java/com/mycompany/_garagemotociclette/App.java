@@ -28,7 +28,7 @@ public class App
       //  Scanner tastiera=new Scanner(System.in);
         ConsoleInput tastiera=new ConsoleInput();
         String marca,modello, dataImmatricolazione = null;
-        int cilindrata,posizione;
+        int cilindrata,posizione,idMotocicletta;
         TextFile f1 = null;
        
         Motocicletta mc;
@@ -94,6 +94,7 @@ public class App
                     
                     try 
                     {
+                        
                         System.out.print("Marca --> ");
                         marca=tastiera.readString();
                         System.out.print("Modello --> ");
@@ -109,7 +110,7 @@ public class App
                             catch(NumberFormatException e)
                             {
                                 System.out.println("Formato non corretto.");
-                            }   
+                            }
                         }while(true);
                         
                         do
@@ -154,8 +155,14 @@ public class App
                     catch (EccezionePosizioneOccupata ex) 
                     {
                         System.out.println("Posizione occupata!");
-                    }         
+                    } 
+                    catch (EccezioneCilindrataNonValida ex) 
+                    {
+                        System.out.println("Cilindrata non valida!");
+                    }
                    break;
+
+
 
 
 

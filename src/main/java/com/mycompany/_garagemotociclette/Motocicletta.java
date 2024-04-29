@@ -4,12 +4,17 @@
  */
 package com.mycompany._garagemotociclette;
 
+import eccezioni.*;
+import java.io.IOException;
+
 /**
  *
  * @author gianluca
  */
 public class Motocicletta 
 {
+    private int idMotocicletta;
+    private static int nextId=1;
     private String marca;
     private String modello;
     private int cilindrata;
@@ -18,16 +23,19 @@ public class Motocicletta
     
     /**
      * Costruttore 
+     * @param idMotocicletta
      * @param marca
      * @param modello
      * @param cilindrata 
      * @param dataImmatricolazione
      */
-    public Motocicletta(String marca, String modello, int cilindrata, String dataImmatricolazione)
+    public Motocicletta(String marca, String modello, int cilindrata, String dataImmatricolazione) throws EccezioneCilindrataNonValida
     {
+        this.idMotocicletta=nextId;
+        nextId++;
         this.marca=marca;
         this.modello=modello;
-        this.cilindrata=cilindrata;
+        setCilindrata(cilindrata);
         this.dataImmatricolazione=dataImmatricolazione;
     }
     
@@ -37,6 +45,7 @@ public class Motocicletta
      */
     public Motocicletta(Motocicletta motocicletta)
     {
+        this.idMotocicletta=motocicletta.getIdMotocicletta();
         this.marca=motocicletta.getMarca();
         this.modello=motocicletta.getModello();
         this.cilindrata=motocicletta.getCilindrata();
@@ -51,6 +60,11 @@ public class Motocicletta
     public void setDataImmatricolazione(String dataImmatricolazione) 
     {
         this.dataImmatricolazione = dataImmatricolazione;
+    }
+    
+    public int getIdMotocicletta() 
+    {
+        return idMotocicletta;
     }
     
     public String getMarca() 
@@ -78,8 +92,10 @@ public class Motocicletta
         return cilindrata;
     }
 
-    public void setCilindrata(int cilindrata) 
+    public void setCilindrata(int cilindrata) throws EccezioneCilindrataNonValida
     {
+        if(cilindrata<0 || cilindrata>1390)
+            throw new EccezioneCilindrataNonValida();
         this.cilindrata = cilindrata;
     }
     
@@ -89,6 +105,6 @@ public class Motocicletta
      */
     @Override
     public String toString() {
-        return "marca=" + marca + ", modello=" + modello + ", cilindrata=" + cilindrata + ", data immatricolazione=" + dataImmatricolazione;
+        return "ID="+idMotocicletta+", marca=" + marca + ", modello=" + modello + ", cilindrata=" + cilindrata + ", data immatricolazione=" + dataImmatricolazione;
     }
 }
