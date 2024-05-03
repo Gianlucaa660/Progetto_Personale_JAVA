@@ -207,36 +207,46 @@ public class Ordinatore
     }
     
     /**
-     * Restituisce un array di stringhe in ordine crescente
-     * @param N
-     * @return array in ordine decrescente
-     */
-    /*public static Motocicletta[] ordinaMotoCilindrataCrescente(Motocicletta[] moto) 
+    * Ordinamento decrescente con bubble sort di un array di stringhe
+    * @param a l'array ordinato
+    * @return 
+    */
+    public static String[] bubbleSortDecrescente(String[] a)
     {
-        int N = moto.length;
-        Motocicletta[] motoOrdinato = new Motocicletta[N];
-        for (int i = 0; i < N; i++)
-            motoOrdinato[i] = moto[i];
-        boolean scambioAvvenuto = false;
-        do {
-            scambioAvvenuto = false;
-            for (int i = 0; i < N - 1; i++) {
-                if (motoOrdinato[i].getCilindrata > motoOrdinato[i + 1].getCilindrata) {
-                    scambia(motoOrdinato, i, i + 1);
-                    scambioAvvenuto = true;
+
+        boolean scambioAvvenuto;
+        int N=a.length;
+        String[] ordinato=new String[N];
+        //copio i valori di a nel nuovo vettore
+        for (int i=0;i<N;i++)
+        {
+            ordinato[i]=a[i];
+        }
+        //Bubble sort
+        do 
+        {
+            scambioAvvenuto=false;
+
+            for(int i=0;i<N-1;i++)
+            {
+                if (ordinato[i].compareTo(ordinato[i+1])<0)
+                {
+                    scambia(ordinato, i, i+1);
+                    scambioAvvenuto=true;
                 }
             }
-        } while (scambioAvvenuto);
-        return motoOrdinato;
-    }*/
+        }while (scambioAvvenuto);
+       return ordinato; 
+    } 
     
-    /*private static void scambia(Motocicletta[] vOrdinato, int i, int j) 
-    {
-        Motocicletta temp = vOrdinato[i];
-        vOrdinato[i] = vOrdinato[j];
-        vOrdinato[j] = temp;
-    }*/
-    
+    /**
+     * Scambia fra di loro gli elementi
+     * in posizione pos1 e in  posizione pos2
+     * di un array di moto m
+     * @param m 
+     * @param pos1 
+     * @param pos2 
+     */
     public static void scambia(Motocicletta[] m, int pos1,int pos2)
     {
         Motocicletta sost;
@@ -245,6 +255,13 @@ public class Ordinatore
         m[pos2]=sost;
     }
     
+    /**
+     * Restituisce una copia ordinata 
+     * in ordine crescente di cilindrata di un vettore
+     * di moto m utilizzando l'algoritmo selction sort
+     * @param m il vettore da ordinare
+     * @return il vettore in ordine crescente
+     */
     public static Motocicletta[] ordinaMotoCilindrataCrescente(Motocicletta[] m) {
         int lunghezza = m.length;
         // Creo una copia di m e la chiamo mOrdinato

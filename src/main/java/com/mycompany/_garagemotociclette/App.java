@@ -19,7 +19,7 @@ public class App
     public static void main(String[] args) 
     {
         
-        int numeroVociMenu=12;
+        int numeroVociMenu=13;
         String[] vociMenu=new String[numeroVociMenu];
         int voceMenuScelta;
         int NUM_MAX_MOTO=50;
@@ -30,15 +30,16 @@ public class App
         String marca,modello, dataImmatricolazione = null;
         int cilindrata,posizione,idMotocicletta;
         TextFile f1 = null;
+        
         Garage garage=new Garage();
         Motocicletta mc;
         Motocicletta[] elencoMotoOrdinatePerCilindrata;
         String [] elencoMarcaMoto;
+        Motocicletta [] elencoMotoEpoc;
         String nomeFileCSV="moto.csv";
         String nomeFileBinario="Garage.bin";
-        //String nomeFileBinario="scaffale.bin";
         
-        //cariacamento dati scaffale
+        //cariacamento dati garage
         try 
         {
             ObjectInputStream reader=new ObjectInputStream(new FileInputStream(nomeFileBinario));
@@ -66,12 +67,12 @@ public class App
         vociMenu[4]="4 -->\tElimina moto (posizione)";
         vociMenu[5]="5 -->\tMostra moto di una specifica marca";
         vociMenu[6]="6 -->\tMostra elenco delle moto presenti ordinato per cilindrata";
-        /*vociMenu[7]="7 -->\tVisualizza tutte le moto depoca";*/
         vociMenu[7]="7 -->\tModifica moto";
-        vociMenu[8]="8 -->\tEsporta volumi in formato CSV";
-        vociMenu[9]="9 -->\tImporta volumi dal file CSV";
-        vociMenu[10]="10 -->\tSalva dati garage";
-        vociMenu[11]="11 -->\tCarica dati garage";
+        vociMenu[8]="8 -->\tVisualizza tutte le moto d'epoca (<2000)";
+        vociMenu[9]="9 -->\tEsporta volumi in formato CSV";
+        vociMenu[10]="10 -->\tImporta volumi dal file CSV";
+        vociMenu[11]="11 -->\tSalva dati garage";
+        vociMenu[12]="12 -->\tCarica dati garage";
         
         menu=new Menu(vociMenu);
         
@@ -337,8 +338,20 @@ public class App
                     }
                     break;
 
-                
                 case 8:
+                    elencoMotoEpoc=p1.elencoMotoDEpoca();
+                    if (elencoMotoEpoc!=null)
+                    {
+                        for(int i=0;i<elencoMotoEpoc.length;i++)
+                        {
+                            System.out.println(elencoMotoEpoc[i]);
+                        }
+                    }
+                    else
+                        System.out.println("Nessuna moto presente della marca scelta.");
+                    break;
+                
+                case 9:
                     try 
                     {
                         p1.esportaCSV(nomeFileCSV);
@@ -349,7 +362,7 @@ public class App
                         System.out.println("Impossibile esportare su file");
                     }
                     break;
-                case 9:
+                case 10:
                     try 
                     {
                         p1.importaDaCSV(nomeFileCSV);
@@ -360,7 +373,7 @@ public class App
                     }
                     break;
                 
-                case 10: //serializzazione
+                case 11: //serializzazione
                     try 
                     {
                         ObjectOutputStream writer=new ObjectOutputStream(new FileOutputStream(nomeFileBinario));
@@ -378,7 +391,7 @@ public class App
                         System.out.println("Impossibile accedere al file");
                     }
                     break;
-                case 11: //deserializzazione
+                case 12: //deserializzazione
                     try 
                     {
                         ObjectInputStream reader=new ObjectInputStream(new FileInputStream(nomeFileBinario));
@@ -399,7 +412,6 @@ public class App
                         System.out.println("Impossibile leggere il dato memorizzato");
                     }
                     break;
-
             }
         }while(voceMenuScelta!=0);
         

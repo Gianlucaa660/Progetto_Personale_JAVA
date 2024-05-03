@@ -64,13 +64,13 @@ public class Garage implements Serializable
          moto=new Motocicletta[NUM_MAX_MOTO];
          int numeroMotoDaAggiungere;
          
-         //se i li bri da aggiungere sono troppi
-         //ne aggiungo solo NUM_MAX_VOLUMI
+         //se le moto da aggiungere sono troppe
+         //ne aggiungo solo NUM_MAX_MOTO
          numeroMotoDaAggiungere=elencoMoto.length;
          if (numeroMotoDaAggiungere>NUM_MAX_MOTO)
              numeroMotoDaAggiungere=NUM_MAX_MOTO;
         
-         //Copio l'i-esimo libro dell'array in  volumi
+         //Copio l'i-esima moto dell'array in elencoMoto
          for (int i=0;i<numeroMotoDaAggiungere;i++)
          {
              if (elencoMoto[i]!=null)
@@ -84,13 +84,20 @@ public class Garage implements Serializable
                 } 
                 catch (EccezionePosizioneOccupata ex) 
                 {
-                    //non succederà mai perchè l'array volumi è vuoto
+                    //non succederà mai perchè l'array elencoMoto è vuoto
                 }
          }
          
          
     }
     
+    /**
+     * Restituisce la moto nella posizione "posizione"
+     * @param posizione
+     * @return 
+     * se la posizione non è valida o vuota --> return null
+        se ok  ritorna l’oggetto moto
+     */
     public Motocicletta getMoto(int posizione) throws EccezionePosizioneNonValida, EccezionePosizioneVuota
     {
         Motocicletta mc;
@@ -99,9 +106,17 @@ public class Garage implements Serializable
         if (moto[posizione]==null)
             throw  new EccezionePosizioneVuota();
         mc=moto[posizione];
-            return new Motocicletta(mc); //restituisco una copia del libro
+            return new Motocicletta(mc); //restituisco una copia della moto
     }
     
+    /**
+     * Rimuove la moto dalla posizione "posizione"
+     * @param posizione
+     * @return 
+     *  se la posizione non è valida --> return -1
+        se già vuota --> return -2
+        se ok  return 0
+     */
     public void rimuoviMoto(int posizione) throws EccezionePosizioneNonValida, EccezionePosizioneVuota
     {
         if(posizione<0 || posizione>NUM_MAX_MOTO)
@@ -113,6 +128,15 @@ public class Garage implements Serializable
         //    return posizione;
     }
     
+    /**
+     * Inserisce la moto nella posizione "posizione" 
+     * @param mc la moto da aggiungere
+     * @param posizione
+     * @return 
+     *  se la posizione non è valida --> return -1
+        se la posizione non è vuota --> return -2
+        se ok  return 0
+     */
     public void setMoto(Motocicletta moto, int posizione) throws EccezionePosizioneNonValida, EccezionePosizioneOccupata
     {
         if (posizione<0 || posizione>=NUM_MAX_MOTO)
@@ -123,23 +147,20 @@ public class Garage implements Serializable
         //return posizione;  
     }
     
-    public void visualizzaMoto()
-    {
-        Motocicletta[] elencoMoto = null;
-        for(int i=0; i<moto.length; i++)
-        {
-            if(moto!=null)
-            {
-                elencoMoto[i]=moto[i];
-            }
-        }
-    }
-    
+    /**
+     * Restituisce il massimo numero di moto
+     * che possono essere poste nel garage
+     * @return 
+     */
     public int getNumMaxMoto()
     {
         return NUM_MAX_MOTO;
     }
     
+    /**
+     * Restituisce il numero di moto presenti nel garage
+     * @return 
+     */
     public int getNumMoto()
     {
         int contatore=0;
@@ -151,12 +172,18 @@ public class Garage implements Serializable
         return contatore;
     }
     
+    /**
+     * Restituisce un array contenente tutti i modelli
+     * della marca passata come parametro
+     * @param marcaMotoDaCercare
+     * @return array di stringhe
+     */
     public String[] elencoMotoMarca (String marcaMotoDaCercare)
     {
         int contaMotoMarca=0;
         Motocicletta mc;
         String[] elencoMarcaMoto;
-        //Conto il numero di libri di quell'autore
+        //Conto il numero di moto di quella mrca
         for(int i=0;i<this.getNumMaxMoto();i++)
         {
             try 
@@ -176,13 +203,13 @@ public class Garage implements Serializable
         }
         
         if (contaMotoMarca==0)
-            return null; //non ci sono libri di quell'autore.
+            return null; //non ci sono moto di quella marca.
         //Istanzio DINAMICAMENTE un array di stringhe
         elencoMarcaMoto=new String[contaMotoMarca];
         
         contaMotoMarca=0; //azzero il contatore per usarlo come contatore dell'array
-        //Copio il titolo di ogni libro di quell'autore
-        //nell'array elencoTitoliAutore
+        //Copio i dati di ogni moto di quella marca
+        //nell'array elencoMarcaMoto
         
         for(int i=0;i<this.getNumMaxMoto();i++)
         {
@@ -206,6 +233,11 @@ public class Garage implements Serializable
         return elencoMarcaMoto;
     }
     
+    /**
+     * Restituisce un array contenente tutte le moto
+     * presenti nel garage ordinate per cilindrata crescente
+     * @return Array di moto
+     */
     public Motocicletta[] elencoMotoOrdinatoPerCilindrata()
     {
         Motocicletta[] elencoMotoOrdinato=new Motocicletta[getNumMoto()];
@@ -228,9 +260,32 @@ public class Garage implements Serializable
                 //non fare nulla
             }
         }
-        //ordino l'array dei libri presenti
+        //ordino l'array delle moto presenti
         elencoMotoOrdinato=Ordinatore.ordinaMotoCilindrataCrescente(elencoMotoOrdinato);
         return elencoMotoOrdinato;
+    }
+    
+    public Motocicletta[] elencoMotoDEpoca() 
+    {
+        Motocicletta[] motoEpoca = new Motocicletta[getNumMoto()];
+        int c = 0; // contatore
+        for (int i = 0; i < getNumMaxMoto(); i++) {
+            try {
+                Motocicletta mc = getMoto(i);
+                if (mc.getAnno() < 2000) { // Verifica se l'anno della motocicletta è minore di 2000
+                    motoEpoca[c] = mc;
+                    c++;
+                }
+            } catch (EccezionePosizioneNonValida ex) {
+                // non succederà mai
+            } catch (EccezionePosizioneVuota ex) {
+                // non fare nulla
+            }
+        }
+        // ridimensiono l'array per eliminare eventuali elementi nulli aggiunti in precedenza
+        Motocicletta[] motoEpocaPre2000 = new Motocicletta[c];
+        System.arraycopy(motoEpoca, 0, motoEpocaPre2000, 0, c);
+        return motoEpocaPre2000;
     }
     
     public void esportaCSV(String nomeFile) throws IOException

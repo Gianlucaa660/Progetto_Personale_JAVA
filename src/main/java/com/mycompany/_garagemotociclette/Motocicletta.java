@@ -6,6 +6,7 @@ package com.mycompany._garagemotociclette;
 
 import eccezioni.*;
 import java.io.IOException;
+import java.time.LocalDate;
 
 /**
  *
@@ -55,6 +56,12 @@ public class Motocicletta
     public String getDataImmatricolazione() 
     {
         return dataImmatricolazione;
+    }
+    
+    public int getAnno()
+    {
+        LocalDate dataImmatricolazione=LocalDate.parse(this.dataImmatricolazione);
+         return dataImmatricolazione.getYear();
     }
 
     public void setDataImmatricolazione(String dataImmatricolazione) 
