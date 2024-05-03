@@ -7,6 +7,9 @@ package com.mycompany._garagemotociclette;
 import eccezioni.*;
 import java.io.IOException;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Month;
+import java.time.Year;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utilità.Ordinatore;
@@ -120,6 +123,18 @@ public class Garage implements Serializable
         //return posizione;  
     }
     
+    public void visualizzaMoto()
+    {
+        Motocicletta[] elencoMoto = null;
+        for(int i=0; i<moto.length; i++)
+        {
+            if(moto!=null)
+            {
+                elencoMoto[i]=moto[i];
+            }
+        }
+    }
+    
     public int getNumMaxMoto()
     {
         return NUM_MAX_MOTO;
@@ -193,7 +208,7 @@ public class Garage implements Serializable
     
     /*public Motocicletta[] elencoMotoOrdinatoPerCilindrata()
     {
-        Motocicletta[] elencoMotoOrdinato=new Motocicletta[getNumMoto()];
+        Motocicletta[] elencoMotoOrdinato=new Motocicletta[this.getNumMoto()];
         Motocicletta mc;
         int c=0; //contatore
         for(int i=0;i<this.getNumMaxMoto();i++)
@@ -214,9 +229,10 @@ public class Garage implements Serializable
             }
         }
         //ordino l'array delle moto presenti
-        elencoMotoOrdinato=Ordinatore.selectionSortCrescente(elencoMotoOrdinato);
+        elencoMotoOrdinato=Ordinatore.ordinaMotoCilindrataCrescente(elencoMotoOrdinato);
         return elencoMotoOrdinato;   
     }*/
+    
     
     public void esportaCSV(String nomeFile) throws IOException
     {

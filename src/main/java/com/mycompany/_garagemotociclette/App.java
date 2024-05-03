@@ -19,7 +19,7 @@ public class App
     public static void main(String[] args) 
     {
         
-        int numeroVociMenu=9;
+        int numeroVociMenu=12;
         String[] vociMenu=new String[numeroVociMenu];
         int voceMenuScelta;
         int NUM_MAX_MOTO=50;
@@ -30,18 +30,19 @@ public class App
         String marca,modello, dataImmatricolazione = null;
         int cilindrata,posizione,idMotocicletta;
         TextFile f1 = null;
-       
+        Garage garage=new Garage();
         Motocicletta mc;
         Motocicletta[] elencoMotoOrdinatePerCilindrata;
         String [] elencoMarcaMoto;
         String nomeFileCSV="moto.csv";
+        String nomeFileBinario="Garage.bin";
         //String nomeFileBinario="scaffale.bin";
         
         //cariacamento dati scaffale
-        /*try 
+        try 
         {
             ObjectInputStream reader=new ObjectInputStream(new FileInputStream(nomeFileBinario));
-            s1=(Scaffale)reader.readObject();
+            p1=(Garage)reader.readObject();
             reader.close();
             System.out.println("Lettura file avvenuta correttamente");
         } 
@@ -56,7 +57,7 @@ public class App
         catch (ClassNotFoundException ex) 
         {
             System.out.println("Impossibile leggere il dato memorizzato");
-        }*/
+        }
         
         vociMenu[0]="0 -->\tEsci";
         vociMenu[1]="1 -->\tVisualizza tutte le moto del garage";
@@ -65,10 +66,12 @@ public class App
         vociMenu[4]="4 -->\tElimina moto (posizione)";
         vociMenu[5]="5 -->\tMostra moto di una specifica marca";
         vociMenu[6]="6 -->\tMostra elenco delle moto presenti ordinato per cilindrata";
-        vociMenu[7]="7 -->\tEsporta volumi in formato CSV";
-        vociMenu[8]="8 -->\tImporta volumi dal file CSV";
-        /*vociMenu[9]="9 -->\tSalva dati scaffale";
-        vociMenu[10]="10 -->\tCarica dati scaffale";*/
+        /*vociMenu[7]="7 -->\tVisualizza tutte le moto depoca";*/
+        vociMenu[7]="7 -->\tModifica moto";
+        vociMenu[8]="8 -->\tEsporta volumi in formato CSV";
+        vociMenu[9]="9 -->\tImporta volumi dal file CSV";
+        vociMenu[10]="10 -->\tSalva dati garage";
+        vociMenu[11]="11 -->\tCarica dati garage";
         
         menu=new Menu(vociMenu);
         
@@ -118,7 +121,7 @@ public class App
                             try
                             {
                                System.out.print("Data immatricolazione (AAAA-MM-GG) --> ");
-                               dataImmatricolazione=tastiera.readString(); 
+                               dataImmatricolazione=tastiera.readString();
                                break;
                             }
                             catch(NumberFormatException e)
@@ -257,14 +260,79 @@ public class App
                     break;
                 
                 case 6:
-                    /*elencoMotoOrdinatePerCilindrata=p1.elencoMotoOrdinatoPerCilindrata();
-                    for(int i=0;i<elencoMotoOrdinatePerCilindrata.length;i++)
+                    Motocicletta[] elencoMoto=new Motocicletta[garage.getNumMoto()];
+                    int[] cilindrateMoto=new int[garage.getNumMoto()];
+                    for(int i=0; i<elencoMoto.length; i++)
                     {
-                        System.out.println(elencoMotoOrdinatePerCilindrata[i].toString());
-                    }*/
+                        
+                    }
                     break;
                 
                 case 7:
+                    System.out.print("Modifica moto (posizione) --> ");
+                
+                    try 
+                    {
+                        posizione=tastiera.readInt();
+                        try 
+                        {
+                            Motocicletta motoModificata=p1.getMoto(posizione);
+                            if(motoModificata!=null)
+                            {
+                                System.out.println("Dati moto attuale:");
+                                System.out.println(motoModificata.toString());
+                                System.out.print("Nuova marca --> ");
+                                String nuovaMarca=tastiera.readString();
+                                System.out.print("Nuovo modello --> ");
+                                String nuovoModello=tastiera.readString();
+                                System.out.print("Nuova cilindrata --> ");
+                                int nuovaCilindrata=tastiera.readInt();
+                                System.out.print("Nuova data immatricolazione --> ");
+                                String nuovaDataImmatricolazione=tastiera.readString();
+                                motoModificata.setMarca(nuovaMarca);
+                                motoModificata.setModello(nuovoModello);
+                                try 
+                                {
+                                    motoModificata.setCilindrata(nuovaCilindrata);
+                                } 
+                                catch (EccezioneCilindrataNonValida ex) 
+                                {
+                                    System.out.println("Cilindrata non valida!");
+                                }
+                                motoModificata.setDataImmatricolazione(nuovaDataImmatricolazione);
+                                p1.rimuoviMoto(posizione);
+                                try 
+                                {
+                                    p1.setMoto(motoModificata, posizione);
+                                    System.out.println("Moto modificata correttamente!");
+                                } 
+                                catch (EccezionePosizioneOccupata ex) 
+                                {
+                                    //non succederà mai
+                                }
+                            }
+                        } 
+                        catch (EccezionePosizioneNonValida ex) 
+                        {
+                            System.out.println("Posizione non valida!");
+                        } 
+                        catch (EccezionePosizioneVuota ex) 
+                        {
+                            System.out.println("Posizione vuota!");
+                        }
+                    } 
+                    catch (IOException ex) 
+                    {
+                        
+                    } 
+                    catch (NumberFormatException ex) 
+                    {
+                        
+                    }
+                    break;
+
+                
+                case 8:
                     try 
                     {
                         p1.esportaCSV(nomeFileCSV);
@@ -275,7 +343,7 @@ public class App
                         System.out.println("Impossibile esportare su file");
                     }
                     break;
-                case 8:
+                case 9:
                     try 
                     {
                         p1.importaDaCSV(nomeFileCSV);
@@ -286,11 +354,11 @@ public class App
                     }
                     break;
                 
-                /*case 9: //serializzazione
+                case 10: //serializzazione
                     try 
                     {
                         ObjectOutputStream writer=new ObjectOutputStream(new FileOutputStream(nomeFileBinario));
-                        writer.writeObject(s1);
+                        writer.writeObject(p1);
                         writer.flush();
                         writer.close();
                         System.out.println("Salvataggio avvenuto correttamente");
@@ -304,11 +372,11 @@ public class App
                         System.out.println("Impossibile accedere al file");
                     }
                     break;
-                case 10: //deserializzazione
+                case 11: //deserializzazione
                     try 
                     {
                         ObjectInputStream reader=new ObjectInputStream(new FileInputStream(nomeFileBinario));
-                        s1=(Scaffale)reader.readObject();
+                        p1=(Garage)reader.readObject();
                         reader.close();
                         System.out.println("Lettura file avvenuta correttamente");
                     } 
@@ -324,7 +392,7 @@ public class App
                     {
                         System.out.println("Impossibile leggere il dato memorizzato");
                     }
-                    break;*/
+                    break;
 
             }
         }while(voceMenuScelta!=0);

@@ -207,44 +207,33 @@ public class Ordinatore
     }
     
     /**
-     * Restituisce un array di stringhe in ordine decrescente
-     * @param s
+     * Restituisce un array di stringhe in ordine crescente
+     * @param N
      * @return array in ordine decrescente
      */
-    public static String[] bubbleSortDecrescente(String[] s)
+    public static Motocicletta[] ordinaMotoCilindrataCrescente(Motocicletta[] moto) 
     {
-	int N=s.length;
-	String[] sOrdinato=new String[N];
-	for(int i=0;i<N;i++)
-	    sOrdinato[i]=s[i];
-	boolean scambioAvvenuto=false;
-	do{
-	    scambioAvvenuto=false;
-	    for(int i=0;i<N-1;i++)
-	    {
-		if(sOrdinato[i].compareToIgnoreCase(sOrdinato[i+1])<0)
-		{
-		    scambia(sOrdinato, i, i+1);
-		    scambioAvvenuto=true;
-		}
-	    }
-	}while(scambioAvvenuto);
-	return sOrdinato;
+        int N = moto.length;
+        Motocicletta[] motoOrdinato = new Motocicletta[N];
+        for (int i = 0; i < N; i++)
+            motoOrdinato[i] = moto[i];
+        boolean scambioAvvenuto = false;
+        do {
+            scambioAvvenuto = false;
+            for (int i = 0; i < N - 1; i++) {
+                if (motoOrdinato[i].getCilindrata > motoOrdinato[i + 1].getCilindrata) {
+                    scambia(motoOrdinato, i, i + 1);
+                    scambioAvvenuto = true;
+                }
+            }
+        } while (scambioAvvenuto);
+        return motoOrdinato;
     }
     
-    /*public static Motocicletta[] ordinaMotoCrescente(Motocicletta[] m)
+    private static void scambia(Motocicletta[] array, int i, int j) 
     {
-        int lunghezza=m.length;
-        //Creo una copia di v e lo chiamo vOrdinato
-        Motocicletta[] vOrdinato=new Motocicletta[lunghezza];
-        for(int i=0;i<lunghezza;i++)
-            vOrdinato[i]=m[i];
-        
-        for(int i=0;i<lunghezza-1;i++)
-        {
-            if (vOrdinato[i].getCilindrata().compareToIgnoreCase(vOrdinato[j].getCilindrata())>0)
-                scambia(vOrdinato, i);
-        }
-       return vOrdinato;
-    }*/
+        Motocicletta temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
