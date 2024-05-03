@@ -211,7 +211,7 @@ public class Ordinatore
      * @param N
      * @return array in ordine decrescente
      */
-    public static Motocicletta[] ordinaMotoCilindrataCrescente(Motocicletta[] moto) 
+    /*public static Motocicletta[] ordinaMotoCilindrataCrescente(Motocicletta[] moto) 
     {
         int N = moto.length;
         Motocicletta[] motoOrdinato = new Motocicletta[N];
@@ -228,12 +228,40 @@ public class Ordinatore
             }
         } while (scambioAvvenuto);
         return motoOrdinato;
+    }*/
+    
+    /*private static void scambia(Motocicletta[] vOrdinato, int i, int j) 
+    {
+        Motocicletta temp = vOrdinato[i];
+        vOrdinato[i] = vOrdinato[j];
+        vOrdinato[j] = temp;
+    }*/
+    
+    public static void scambia(Motocicletta[] m, int pos1,int pos2)
+    {
+        Motocicletta sost;
+        sost=m[pos1];
+        m[pos1]=m[pos2];
+        m[pos2]=sost;
     }
     
-    private static void scambia(Motocicletta[] array, int i, int j) 
-    {
-        Motocicletta temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
+    public static Motocicletta[] ordinaMotoCilindrataCrescente(Motocicletta[] m) {
+        int lunghezza = m.length;
+        // Creo una copia di m e la chiamo mOrdinato
+        Motocicletta[] mOrdinato = new Motocicletta[lunghezza];
+        for (int i = 0; i < lunghezza; i++)
+            mOrdinato[i] = m[i];
+
+        for (int i = 0; i < lunghezza - 1; i++) {
+            for (int j = i + 1; j < lunghezza; j++) {
+                // Confronto le cilindrate delle motociclette e scambio se necessario
+                if (mOrdinato[i].getCilindrata() > mOrdinato[j].getCilindrata()) {
+                    Motocicletta temp = mOrdinato[i];
+                    mOrdinato[i] = mOrdinato[j];
+                    mOrdinato[j] = temp;
+                }
+            }
+        }
+        return mOrdinato;
     }
 }

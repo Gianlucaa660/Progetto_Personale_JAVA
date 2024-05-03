@@ -260,11 +260,17 @@ public class App
                     break;
                 
                 case 6:
-                    Motocicletta[] elencoMoto=new Motocicletta[garage.getNumMoto()];
+                    /*Motocicletta[] elencoMoto=new Motocicletta[garage.getNumMoto()];
                     int[] cilindrateMoto=new int[garage.getNumMoto()];
                     for(int i=0; i<elencoMoto.length; i++)
                     {
                         
+                    }
+                    break;*/
+                    elencoMotoOrdinatePerCilindrata=p1.elencoMotoOrdinatoPerCilindrata();
+                    for(int i=0;i<elencoMotoOrdinatePerCilindrata.length;i++)
+                    {
+                        System.out.println(elencoMotoOrdinatePerCilindrata[i].toString());
                     }
                     break;
                 

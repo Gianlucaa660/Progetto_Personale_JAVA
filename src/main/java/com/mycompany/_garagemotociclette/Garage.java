@@ -206,12 +206,12 @@ public class Garage implements Serializable
         return elencoMarcaMoto;
     }
     
-    /*public Motocicletta[] elencoMotoOrdinatoPerCilindrata()
+    public Motocicletta[] elencoMotoOrdinatoPerCilindrata()
     {
-        Motocicletta[] elencoMotoOrdinato=new Motocicletta[this.getNumMoto()];
+        Motocicletta[] elencoMotoOrdinato=new Motocicletta[getNumMoto()];
         Motocicletta mc;
         int c=0; //contatore
-        for(int i=0;i<this.getNumMaxMoto();i++)
+        for(int i=0;i<getNumMaxMoto();i++)
         {
             try 
             {
@@ -228,11 +228,10 @@ public class Garage implements Serializable
                 //non fare nulla
             }
         }
-        //ordino l'array delle moto presenti
+        //ordino l'array dei libri presenti
         elencoMotoOrdinato=Ordinatore.ordinaMotoCilindrataCrescente(elencoMotoOrdinato);
-        return elencoMotoOrdinato;   
-    }*/
-    
+        return elencoMotoOrdinato;
+    }
     
     public void esportaCSV(String nomeFile) throws IOException
     {
