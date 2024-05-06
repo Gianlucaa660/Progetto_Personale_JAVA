@@ -288,6 +288,119 @@ public class Garage implements Serializable
         return motoEpocaPre2000;
     }
     
+    
+    /*public String[] elencoMotoCilindrata (int cilindrataDaCercare)
+    {
+        int contaMotoCilindrata=0;
+        Motocicletta mc;
+        String[] elencoCilindrataMoto;
+        //Conto il numero di moto di quella mrca
+        for(int i=0;i<this.getNumMaxMoto();i++)
+        {
+            try 
+            {
+                mc=this.getMoto(i);
+                if (mc.getCilindrata()==(cilindrataDaCercare))
+                    contaMotoCilindrata++;   
+            }
+            catch (EccezionePosizioneNonValida ex)
+            {
+                //non succederà mai
+            } 
+            catch (EccezionePosizioneVuota ex) 
+            {
+                    //non fare nulla.
+            }
+        }
+        
+        if (contaMotoCilindrata==0)
+            return null; //non ci sono moto di quella marca.
+        //Istanzio DINAMICAMENTE un array di stringhe
+        elencoCilindrataMoto=new String[contaMotoCilindrata];
+        
+        contaMotoCilindrata=0; //azzero il contatore per usarlo come contatore dell'array
+        //Copio i dati di ogni moto di quella marca
+        //nell'array elencoMarcaMoto
+        
+        for(int i=0;i<this.getNumMaxMoto();i++)
+        {
+            try {
+                mc=this.getMoto(i);
+                if (mc.getCilindrata()==(cilindrataDaCercare))
+                {
+                    elencoCilindrataMoto[contaMotoCilindrata]=mc.toString();
+                    contaMotoCilindrata++;
+                } 
+            }
+            catch (EccezionePosizioneNonValida ex) 
+            {
+                   //non succederà mai
+            } 
+            catch (EccezionePosizioneVuota ex) 
+            {
+                //non fare nulla
+            }
+        }
+        return elencoCilindrataMoto;
+    }*/
+    
+    
+    /*public String[] elencoMotoAnno (int annataDaCercare)
+    {
+        int contaMotoAnnata=0;
+        Motocicletta mc;
+        String[] elencoMotoAnnata;
+        //Conto il numero di moto di quella mrca
+        for(int i=0;i<this.getNumMaxMoto();i++)
+        {
+            try 
+            {
+                mc=this.getMoto(i);
+                if (mc.getAnno()==(annataDaCercare))
+                    contaMotoAnnata++;   
+            }
+            catch (EccezionePosizioneNonValida ex)
+            {
+                //non succederà mai
+            } 
+            catch (EccezionePosizioneVuota ex) 
+            {
+                    //non fare nulla.
+            }
+        }
+        
+        if (contaMotoAnnata==0)
+            return null; //non ci sono moto di quella marca.
+        //Istanzio DINAMICAMENTE un array di stringhe
+        elencoMotoAnnata=new String[contaMotoAnnata];
+        
+        contaMotoAnnata=0; //azzero il contatore per usarlo come contatore dell'array
+        //Copio i dati di ogni moto di quella marca
+        //nell'array elencoMarcaMoto
+        
+        for(int i=0;i<this.getNumMaxMoto();i++)
+        {
+            try {
+                mc=this.getMoto(i);
+                if (mc.getAnno()==(annataDaCercare))
+                {
+                    elencoMotoAnnata[contaMotoAnnata]=mc.toString();
+                    contaMotoAnnata++;
+                } 
+            }
+            catch (EccezionePosizioneNonValida ex) 
+            {
+                   //non succederà mai
+            } 
+            catch (EccezionePosizioneVuota ex) 
+            {
+                //non fare nulla
+            }
+        }
+        return elencoMotoAnnata;
+    }*/
+    
+    
     public void esportaCSV(String nomeFile) throws IOException
     {
         TextFile f1;

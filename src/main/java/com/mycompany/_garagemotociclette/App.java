@@ -28,13 +28,15 @@ public class App
       //  Scanner tastiera=new Scanner(System.in);
         ConsoleInput tastiera=new ConsoleInput();
         String marca,modello, dataImmatricolazione = null;
-        int cilindrata,posizione,idMotocicletta;
+        int cilindrata,posizione,idMotocicletta,anno;
         TextFile f1 = null;
         
         Garage garage=new Garage();
         Motocicletta mc;
         Motocicletta[] elencoMotoOrdinatePerCilindrata;
         String [] elencoMarcaMoto;
+        String [] elencoCilindrataMoto;
+        String [] elencoMotoAnnata;
         Motocicletta [] elencoMotoEpoc;
         String nomeFileCSV="moto.csv";
         String nomeFileBinario="Garage.bin";
@@ -73,6 +75,8 @@ public class App
         vociMenu[10]="10 -->\tImporta volumi dal file CSV";
         vociMenu[11]="11 -->\tSalva dati garage";
         vociMenu[12]="12 -->\tCarica dati garage";
+        /*vociMenu[13]="13 -->\tVisualizza tutte le moto di una cilindrata (cilindrata)";
+        vociMenu[14]="14 -->\tMoto della stessa annata";*/
         
         menu=new Menu(vociMenu);
         
@@ -261,13 +265,6 @@ public class App
                     break;
                 
                 case 6:
-                    /*Motocicletta[] elencoMoto=new Motocicletta[garage.getNumMoto()];
-                    int[] cilindrateMoto=new int[garage.getNumMoto()];
-                    for(int i=0; i<elencoMoto.length; i++)
-                    {
-                        
-                    }
-                    break;*/
                     elencoMotoOrdinatePerCilindrata=p1.elencoMotoOrdinatoPerCilindrata();
                     for(int i=0;i<elencoMotoOrdinatePerCilindrata.length;i++)
                     {
@@ -412,8 +409,51 @@ public class App
                         System.out.println("Impossibile leggere il dato memorizzato");
                     }
                     break;
+                    
+                /*case 13:
+                    try
+                    {
+                        System.out.print("Cilindrata --> ");
+                        cilindrata=tastiera.readInt();
+                        elencoCilindrataMoto=p1.elencoMotoCilindrata(cilindrata);
+                        if (elencoCilindrataMoto!=null)
+                        {
+                            for(int i=0;i<elencoCilindrataMoto.length;i++)
+                            {
+                                System.out.println(elencoCilindrataMoto[i]);
+                            }
+                        }
+                        else
+                            System.out.println("Nessuna moto presente della marca scelta.");
+                    }
+                    catch (IOException e)
+                    {
+                        System.out.println("Errore. Imposssibile leggere da tastiera");
+                    }
+                    break;
+                    
+                case 14:
+                    try
+                    {
+                        System.out.print("Anno --> ");
+                        anno=tastiera.readInt();
+                        elencoMotoAnnata=p1.elencoMotoAnno(anno);
+                        if (elencoMotoAnnata!=null)
+                        {
+                            for(int i=0;i<elencoMotoAnnata.length;i++)
+                            {
+                                System.out.println(elencoMotoAnnata[i]);
+                            }
+                        }
+                        else
+                            System.out.println("Nessuna moto presente della marca scelta.");
+                    }
+                    catch (IOException e)
+                    {
+                        System.out.println("Errore. Imposssibile leggere da tastiera");
+                    }
+                    break;*/
             }
         }while(voceMenuScelta!=0);
-        
     }
 }
