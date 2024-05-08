@@ -288,6 +288,15 @@ public class Garage implements Serializable
         return motoEpocaPre2000;
     }
     
+    public void modificaMoto(int posizione, Motocicletta nuovaMoto) throws EccezionePosizioneNonValida, EccezionePosizioneVuota
+    {
+        if(posizione<0 || posizione>=50)
+            throw new EccezionePosizioneNonValida();
+        if(moto[posizione]==null)
+            throw new EccezionePosizioneVuota();
+        moto[posizione]=nuovaMoto;
+    }
+    
     
     /*public String[] elencoMotoCilindrata (int cilindrataDaCercare)
     {
@@ -490,5 +499,9 @@ public class Garage implements Serializable
         }
         
         return s;
+    }
+
+    public void setMoto(Motocicletta motocicletta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
