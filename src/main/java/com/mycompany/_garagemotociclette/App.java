@@ -373,11 +373,8 @@ public class App
                 case 11: //serializzazione
                     try 
                     {
-                        ObjectOutputStream writer=new ObjectOutputStream(new FileOutputStream(nomeFileBinario));
-                        writer.writeObject(p1);
-                        writer.flush();
-                        writer.close();
-                        System.out.println("Salvataggio avvenuto correttamente");
+                        p1.salvaDatiBIN(nomeFileBinario);
+                        System.out.println("Dati salvati correttamente");
                     } 
                     catch (FileNotFoundException ex) 
                     {
@@ -391,10 +388,8 @@ public class App
                 case 12: //deserializzazione
                     try 
                     {
-                        ObjectInputStream reader=new ObjectInputStream(new FileInputStream(nomeFileBinario));
-                        p1=(Garage)reader.readObject();
-                        reader.close();
-                        System.out.println("Lettura file avvenuta correttamente");
+                        p1.caricaDatiBIN(nomeFileBinario);
+                        System.out.println("Fine operazione di caricamento");
                     } 
                     catch (FileNotFoundException ex) 
                     {

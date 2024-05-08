@@ -5,7 +5,11 @@
 package com.mycompany._garagemotociclette;
 
 import eccezioni.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
@@ -500,8 +504,22 @@ public class Garage implements Serializable
         
         return s;
     }
-
-    public void setMoto(Motocicletta motocicletta) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    String nomeFile="Garage.bin";
+    
+    public void salvaDatiBIN(String nomeFileBinario) throws IOException
+    {
+        ObjectOutputStream writer=new ObjectOutputStream(new FileOutputStream(nomeFile));
+        writer.writeObject(this);
+        writer.flush();
+        writer.close();
+        System.out.println("Salvataggio avvenuto correttamente");
+    }
+    public void caricaDatiBIN(String nomeFileBinario) throws IOException, ClassNotFoundException
+    {
+        Garage p1;
+        ObjectInputStream reader=new ObjectInputStream(new FileInputStream(nomeFileBinario));
+        p1=(Garage)reader.readObject();
+        reader.close();
+        System.out.println("Lettura file avvenuta correttamente");
     }
 }
